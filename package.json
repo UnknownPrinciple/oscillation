@@ -1,7 +1,7 @@
 {
   "name": "react-oscillation",
   "version": "0.0.0",
-  "description": "",
+  "description": "React animations library",
   "license": "MIT",
   "author": "Alexey Raspopov",
   "repository": "alexeyraspopov/react-oscillation",
