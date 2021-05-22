@@ -1,7 +1,7 @@
 import { useState, useLayoutEffect } from 'react';
 import { MotionValue } from './MotionValue';
 
-let msPerFrame = 1000 / 60;
+const MS_PER_FRAME = 1000 / 60;
 
 export function useMotion(factory, deps) {
   let [state, setState] = useState(() => {
@@ -39,23 +39,23 @@ export function useMotion(factory, deps) {
       lastTimestamp = timestamp;
 
       // it's been too long since no update, let's restart the whole thing
-      if (accumulatedMs > msPerFrame * 10) {
+      if (accumulatedMs > MS_PER_FRAME * 10) {
         accumulatedMs = 0;
         return;
       }
 
       // rendering cycle is not consistent and we need to take this into account
-      let framesToCatchUp = Math.floor(accumulatedMs / msPerFrame);
+      let framesToCatchUp = Math.floor(accumulatedMs / MS_PER_FRAME);
 
       for (let i = 0; i < framesToCatchUp; i++) {
         values.forEach((value) => value.update());
       }
 
       // motion values are up to date, ready to be rendered
-      accumulatedMs -= framesToCatchUp * msPerFrame;
+      accumulatedMs -= framesToCatchUp * MS_PER_FRAME;
 
       // for smooth experince, let's interpolate final state accordingly to frame's completion
-      let currentFrameCompletion = accumulatedMs / msPerFrame;
+      let currentFrameCompletion = accumulatedMs / MS_PER_FRAME;
       values.forEach((value) => {
         newState[value.key] = value.interpolate(currentFrameCompletion);
       });

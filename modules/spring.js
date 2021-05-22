@@ -1,4 +1,3 @@
-// TODO make it possible to pass initial velocity
 export function spring(value, config = springs.noWobble, precision = 0.01) {
   return { value, config, precision, step };
 }
@@ -10,8 +9,9 @@ export let springs = {
   stiff: { mass: 1, stiffness: 210, damping: 20 },
 };
 
+const SEC_PER_FRAME = 1 / 60;
+
 let tuple = [0, 0];
-let secPerFrame = 1 / 60;
 function step(x, v, destX, config, precision) {
   // Spring stiffness, in kg / s^2
 
@@ -24,8 +24,8 @@ function step(x, v, destX, config, precision) {
 
   let a = (Fspring + Fdamper) / config.mass;
 
-  let newV = v + a * secPerFrame;
-  let newX = x + newV * secPerFrame;
+  let newV = v + a * SEC_PER_FRAME;
+  let newX = x + newV * SEC_PER_FRAME;
 
   if (Math.abs(newV) < precision && Math.abs(newX - destX) < precision) {
     tuple[0] = destX;
