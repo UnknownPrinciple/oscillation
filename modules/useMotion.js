@@ -15,9 +15,6 @@ export function useMotion(factory, deps) {
   });
 
   useLayoutEffect(() => {
-    let accumulatedMs = 0;
-    let lastTimestamp = 0;
-
     // instantiate fresh entities since the effect is restarted based on the input data
     let entities = factory();
     let newState = Object.create(entities);
@@ -33,35 +30,41 @@ export function useMotion(factory, deps) {
       }
     }
 
+    function update() {
+      values.forEach((value) => value.update());
+    }
+
+    function render(completion) {
+      // for smooth experince, let's interpolate final state accordingly to frame's completion
+      values.forEach((value) => {
+        newState[value.key] = value.interpolate(completion);
+      });
+
+      // flushing updated state via React state setter
+      setState(Object.create(newState));
+    }
+
+    let accumulatedMs = 0;
+    let lastTimestamp = performance.now();
     function performMotion(timestamp) {
       // check for accumulated time since we don't fully own the render cycle
-      accumulatedMs += lastTimestamp ? timestamp - lastTimestamp : 0;
+      accumulatedMs += timestamp - lastTimestamp;
       lastTimestamp = timestamp;
 
-      // it's been too long since no update, let's restart the whole thing
+      // if accumulated time is increasingly huge, probably the window was suspended
+      // restarting the loop allows resuming animation when the window is active again
       if (accumulatedMs > MS_PER_FRAME * 10) {
         accumulatedMs = 0;
         return;
       }
 
       // rendering cycle is not consistent and we need to take this into account
-      let framesToCatchUp = Math.floor(accumulatedMs / MS_PER_FRAME);
-
-      for (let i = 0; i < framesToCatchUp; i++) {
-        values.forEach((value) => value.update());
+      while (accumulatedMs >= MS_PER_FRAME) {
+        accumulatedMs -= MS_PER_FRAME;
+        update();
       }
 
-      // motion values are up to date, ready to be rendered
-      accumulatedMs -= framesToCatchUp * MS_PER_FRAME;
-
-      // for smooth experince, let's interpolate final state accordingly to frame's completion
-      let currentFrameCompletion = accumulatedMs / MS_PER_FRAME;
-      values.forEach((value) => {
-        newState[value.key] = value.interpolate(currentFrameCompletion);
-      });
-
-      // flushing updated state via React state setter
-      setState(Object.create(newState));
+      render(accumulatedMs / MS_PER_FRAME);
     }
 
     // whenever a motion value gets destination point, start the animation loop
