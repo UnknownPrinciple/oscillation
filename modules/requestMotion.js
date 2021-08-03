@@ -85,5 +85,11 @@ export function cancelMotion(motionId) {
 }
 
 function shouldContinueMotion(values) {
-  return values.some((value) => value.v !== 0 || value.x !== value.destX);
+  for (let i = 0; i < values.length; i++) {
+    let value = values[i];
+    if (value.v !== 0 || value.x !== value.destX) {
+      return true;
+    }
+  }
+  return false;
 }
