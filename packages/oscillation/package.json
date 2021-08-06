@@ -1,0 +1,16 @@
+{
+  "name": "oscillation",
+  "version": "0.0.0",
+  "description": "An animation library",
+  "license": "ISC",
+  "author": "Alexey Raspopov",
+  "repository": "UnknownPrinciple/oscillation",
+  "main": "./oscillation.js",
+  "module": "./oscillation.js",
+  "exports": "./oscillation.js",
+  "sideEffects": false,
+  "scripts": {
+    "test": "jest --resetMocks",
+    "build": "rollup --config rollup.config.js"
+  }
+}

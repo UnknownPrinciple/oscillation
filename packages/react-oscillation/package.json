@@ -1,0 +1,19 @@
+{
+  "name": "react-oscillation",
+  "version": "0.0.0",
+  "description": "An animation library",
+  "license": "ISC",
+  "author": "Alexey Raspopov",
+  "repository": "UnknownPrinciple/oscillation",
+  "main": "./react-oscillation.js",
+  "module": "./react-oscillation.js",
+  "exports": "./react-oscillation.js",
+  "sideEffects": false,
+  "scripts": {
+    "test": "jest --resetMocks",
+    "build": "rollup --config rollup.config.js"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0"
+  }
+}
