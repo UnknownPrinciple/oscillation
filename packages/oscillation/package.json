@@ -8,6 +8,7 @@
   "main": "./oscillation.js",
   "module": "./oscillation.js",
   "exports": "./oscillation.js",
+  "type": "module",
   "sideEffects": false,
   "scripts": {
     "test": "jest --resetMocks",
