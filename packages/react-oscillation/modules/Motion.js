@@ -1,7 +1,6 @@
-import { createElement, forwardRef } from 'react';
 import { useMotion } from './useMotion';
 
-export function Motion(props) {
+function Motion(props) {
   let values = useMotion(() => omit(props, ['children']), [props]);
   return props.children(values);
 }
