@@ -1,5 +1,7 @@
 # React Oscillation
 
+Complementary React hooks and components for Oscillation library
+
     npm install react-oscillation
 
 ## Usage

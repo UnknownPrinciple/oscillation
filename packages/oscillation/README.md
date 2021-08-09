@@ -1,5 +1,7 @@
 # Oscillation
 
+Physics-based animations made easy
+
     npm install oscillation
 
 ## Usage
