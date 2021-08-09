@@ -11,7 +11,10 @@
   "type": "module",
   "sideEffects": false,
   "scripts": {
-    "test": "jest --resetMocks",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --resetMocks --coverage --watch",
     "build": "rollup --config rollup.config.js"
+  },
+  "jest": {
+    "transform": {}
   }
 }
