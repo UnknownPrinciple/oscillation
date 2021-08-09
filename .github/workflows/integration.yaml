@@ -18,5 +18,5 @@ jobs:
       with:
         node-version: 16.x
         cache: 'npm'
-    - run: npm install --no-package-lock
+    - run: npm ci
     - run: npm test --workspaces --if-present
