@@ -33,7 +33,7 @@ test('proper react hooks data passing to the core library', () => {
   expect(renderer.toJSON().children).toEqual(['10', ', ', '1']);
 });
 
-test('proper react hooks data passing to the core library', () => {
+test('proper react hooks setter scheduling', () => {
   let snapshots = [];
   let setStateFn;
   function Component() {
