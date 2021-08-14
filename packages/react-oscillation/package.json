@@ -11,7 +11,7 @@
   "type": "module",
   "sideEffects": false,
   "scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest --resetMocks --coverage --transform='{}'",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --config jest.config.js",
     "build": "rollup --config rollup.config.js"
   },
   "dependencies": {
@@ -19,5 +19,8 @@
   },
   "peerDependencies": {
     "react": "^17.0.0"
+  },
+  "devDependencies": {
+    "react-test-renderer": "^17.0.2"
   }
 }
