@@ -24,7 +24,7 @@ export function requestMotion(initialState, destinationValues, callback) {
     // restarting the loop allows resuming animation when the window is active again
     if (accumulatedMs > MS_PER_FRAME * 10) {
       accumulatedMs = 0;
-      return;
+      return shouldContinueMotion(values);
     }
 
     // rendering cycle is not consistent and we need to take this into account
