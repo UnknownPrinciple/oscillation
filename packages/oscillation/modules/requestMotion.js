@@ -43,15 +43,17 @@ export function requestMotion(initialState, destinationValues, callback) {
     }
 
     // yield to actual render
-    callback(state);
+    let shouldContinue = shouldContinueMotion(values);
+    callback(state, !shouldContinue);
+    return shouldContinue;
   }
 
   if (shouldContinueMotion(values)) {
     // whenever a motion value gets destination point, start the animation loop
     let timerId = requestAnimationFrame(function loop(timestamp) {
-      performMotion(timestamp);
+      let shouldContinue = performMotion(timestamp);
 
-      if (shouldContinueMotion(values)) {
+      if (shouldContinue) {
         // keep iterating if any of motion values still hasn't reached the destination
         let nextTimerId = requestAnimationFrame(loop);
         timers.set(motionId, nextTimerId);

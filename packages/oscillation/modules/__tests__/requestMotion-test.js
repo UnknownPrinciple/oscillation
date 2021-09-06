@@ -69,6 +69,16 @@ test('explicit motion cancellation', () => {
   expect(snapshots).toEqual([-10, -14.251734665738812, -20.711652077546674, -28.117553923398887]);
 });
 
+test('completeness argument passed', () => {
+  let snapshots = [];
+  requestMotion({ x: 0 }, { x: spring(10) }, ({ x }, c) => snapshots.push([x, c]));
+
+  advanceAnimationFrame(1, 0);
+  advanceAnimationFrame(69, 1000 / 60);
+  expect(snapshots[0]).toEqual([0, false]);
+  expect(snapshots[snapshots.length - 1]).toEqual([10, true]);
+});
+
 test('no work needed', () => {
   let callback = jest.fn();
   let id = requestMotion({ x: 0 }, { x: 0 }, callback);
