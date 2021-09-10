@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from 'react';
 import { requestMotion, cancelMotion } from 'oscillation';
-import { isMotionConfig } from './motionState';
+import { isMotionConfig } from './motionState.js';
 
 export function useMotionState(initialValue) {
   let [state, setState] = useState(initialValue);

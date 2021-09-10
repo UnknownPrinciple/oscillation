@@ -1,4 +1,4 @@
-import { useMotion } from './useMotion';
+import { useMotion } from './useMotion.js';
 
 function Motion(props) {
   let values = useMotion(() => omit(props, ['children']), [props]);

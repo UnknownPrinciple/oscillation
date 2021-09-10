@@ -1,7 +1,7 @@
 import { jest } from '@jest/globals';
-import { requestMotion, cancelMotion } from '../requestMotion';
-import { spring, springs } from '../spring';
-import instantiateMock from '../__mocks__/host';
+import { requestMotion, cancelMotion } from '../requestMotion.js';
+import { spring, springs } from '../spring.js';
+import instantiateMock from '../__mocks__/host.js';
 
 beforeEach(() => {
   instantiateMock();

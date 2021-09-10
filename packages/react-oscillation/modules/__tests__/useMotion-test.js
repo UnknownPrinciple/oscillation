@@ -1,10 +1,10 @@
 import { jest } from '@jest/globals';
 import { createElement } from 'react';
 import { create, act } from 'react-test-renderer';
-import { useMotion } from '../useMotion';
-import { useMotionState } from '../useMotionState';
-import { spring } from '../spring';
-import instantiateMock from '../__mocks__/host';
+import { useMotion } from '../useMotion.js';
+import { useMotionState } from '../useMotionState.js';
+import { spring } from '../spring.js';
+import instantiateMock from '../__mocks__/host.js';
 
 beforeEach(() => {
   instantiateMock();
