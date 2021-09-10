@@ -1,3 +1,5 @@
+import { requestAnimationFrame, cancelAnimationFrame, getCurrentTimestamp } from './environment.js';
+
 const MS_PER_FRAME = 1000 / 60;
 
 let timers = new Map();
@@ -14,7 +16,7 @@ export function requestMotion(initialState, destinationValues, callback) {
 
   // main animation loop starts here
   let accumulatedMs = 0;
-  let lastTimestamp = performance.now();
+  let lastTimestamp = getCurrentTimestamp();
   function performMotion(timestamp) {
     // check for accumulated time since we don't fully own the render cycle
     accumulatedMs += timestamp - lastTimestamp;
