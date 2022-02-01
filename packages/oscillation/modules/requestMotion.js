@@ -26,7 +26,7 @@ export function requestMotion(initialState, destinationValues, callback) {
     // restarting the loop allows resuming animation when the window is active again
     if (accumulatedMs > MS_PER_FRAME * 10) {
       accumulatedMs = 0;
-      return shouldContinueMotion(values);
+      return null;
     }
 
     // rendering cycle is not consistent and we need to take this into account
@@ -44,16 +44,19 @@ export function requestMotion(initialState, destinationValues, callback) {
       state[value.key] = interpolateMotionValue(value, accumulatedMs / MS_PER_FRAME);
     }
 
-    // yield to actual render
-    let shouldContinue = shouldContinueMotion(values);
-    callback(state, !shouldContinue);
-    return shouldContinue;
+    return state;
   }
 
   if (shouldContinueMotion(values)) {
     // whenever a motion value gets destination point, start the animation loop
     let timerId = requestAnimationFrame(function loop(timestamp) {
-      let shouldContinue = performMotion(timestamp);
+      let state = performMotion(timestamp);
+      let shouldContinue = shouldContinueMotion(values);
+
+      // yield to actual render
+      if (state != null) {
+        callback(state, !shouldContinue);
+      }
 
       if (shouldContinue) {
         // keep iterating if any of motion values still hasn't reached the destination
