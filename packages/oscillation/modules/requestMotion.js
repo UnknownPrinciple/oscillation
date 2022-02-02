@@ -16,11 +16,9 @@ export function requestMotion(initialState, destinationValues, callback) {
 
   // main animation loop starts here
   let accumulatedMs = 0;
-  let lastTimestamp = getCurrentTimestamp();
-  function performMotion(timestamp) {
+  function computeMotionState(timedelta) {
     // check for accumulated time since we don't fully own the render cycle
-    accumulatedMs += timestamp - lastTimestamp;
-    lastTimestamp = timestamp;
+    accumulatedMs += timedelta;
 
     // if accumulated time is increasingly huge, probably the window was suspended
     // restarting the loop allows resuming animation when the window is active again
@@ -49,9 +47,11 @@ export function requestMotion(initialState, destinationValues, callback) {
 
   if (shouldContinueMotion(values)) {
     // whenever a motion value gets destination point, start the animation loop
+    let lastTimestamp = getCurrentTimestamp();
     let timerId = requestAnimationFrame(function loop(timestamp) {
-      let state = performMotion(timestamp);
+      let state = computeMotionState(timestamp - lastTimestamp);
       let shouldContinue = shouldContinueMotion(values);
+      lastTimestamp = timestamp;
 
       // yield to actual render
       if (state != null) {
