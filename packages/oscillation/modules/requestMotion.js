@@ -16,6 +16,7 @@ export function requestMotion(initialState, destinationValues, callback) {
 
   // main animation loop starts here
   let accumulatedMs = 0;
+  let state = Object.create(destinationValues);
   function computeMotionState(timedelta) {
     // check for accumulated time since we don't fully own the render cycle
     accumulatedMs += timedelta;
@@ -36,7 +37,6 @@ export function requestMotion(initialState, destinationValues, callback) {
     }
 
     // for smooth experince, let's interpolate final state accordingly to frame's completion
-    let state = Object.create(destinationValues);
     for (let i = 0; i < values.length; i++) {
       let value = values[i];
       state[value.key] = interpolateMotionValue(value, accumulatedMs / MS_PER_FRAME);
