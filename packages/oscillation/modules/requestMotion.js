@@ -108,8 +108,8 @@ function createMotionValue(key, initial, config) {
 
 function updateMotionValue(value) {
   let update = value.config.update(value.x, value.v, value.destX, value.config);
-  value.x = update[0];
-  value.y = update[1];
+  value.x = update[0]
+  value.v = update[1]
 }
 
 function interpolateMotionValue(value, completion) {
