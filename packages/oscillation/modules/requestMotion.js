@@ -113,6 +113,6 @@ function updateMotionValue(value) {
 }
 
 function interpolateMotionValue(value, completion) {
-  let [x] = value.config.update(value.x, value.v, value.destX, value.config);
-  return value.config.interpolate(value.x, x, completion);
+  let r = value.config.update(value.x, value.v, value.destX, value.config);
+  return value.config.interpolate(value.x, r[0], completion);
 }
