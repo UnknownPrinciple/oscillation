@@ -1,5 +1,3 @@
-import { requestAnimationFrame, cancelAnimationFrame, getCurrentTimestamp } from "./environment.js";
-
 const MS_PER_FRAME = 1000 / 60;
 
 let timers = new Map();
@@ -47,7 +45,7 @@ export function requestMotion(initialState, destinationValues, callback) {
 
   if (shouldContinueMotion(values)) {
     // whenever a motion value gets destination point, start the animation loop
-    let lastTimestamp = getCurrentTimestamp();
+    let lastTimestamp = performance.now();
     let timerId = requestAnimationFrame(function loop(timestamp) {
       let state = computeMotionState(timestamp - lastTimestamp);
       let shouldContinue = shouldContinueMotion(values);
