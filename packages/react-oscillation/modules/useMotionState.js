@@ -9,28 +9,25 @@ export function useMotionState(initialValue) {
   // before starting a new one
   let idRef = useRef(null);
 
-  // to avoid setter callback invalidation, tracking the state as a ref
-  // so at any time, calling the setter still use proper inital state for motion
-  let stateRef = useRef(null);
-  stateRef.current = state;
-
   let setMotionState = useCallback((values) => {
     cancelMotion(idRef.current);
 
-    // in the same way as setState(), this setter can receive a callback to determine
-    // the next value based on the current one
-    let nextValues = typeof values === 'function' ? values(stateRef.current) : values;
+    setState((state) => {
+      // in the same way as setState(), this setter can receive a callback to determine
+      // the next value based on the current one
+      let nextValues = typeof values === "function" ? values(state) : values;
 
-    // if any of new values require motion, trigger animaitons and save the id
-    for (let key in nextValues) {
-      if (isMotionConfig(nextValues[key])) {
-        idRef.current = requestMotion(stateRef.current, nextValues, setState);
-        return;
+      // if any of new values require motion, trigger animaitons and save the id
+      for (let key in nextValues) {
+        if (isMotionConfig(nextValues[key])) {
+          idRef.current = requestMotion(state, nextValues, setState);
+          return state;
+        }
       }
-    }
 
-    // otherwise, assume immediate state change
-    setState(nextValues);
+      // otherwise, assume immediate state change
+      return nextValues;
+    });
   }, []);
 
   return [state, setMotionState];
