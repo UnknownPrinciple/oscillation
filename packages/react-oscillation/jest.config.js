@@ -4,6 +4,6 @@ export default {
   transform: {},
   moduleNameMapper: {
     // expects build artifacts
-    oscillation$: '<rootDir>/../oscillation/build',
+    oscillation$: "<rootDir>/../oscillation/build",
   },
 };

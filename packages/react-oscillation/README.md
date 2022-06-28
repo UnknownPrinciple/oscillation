@@ -7,7 +7,7 @@ Complementary React hooks and components for Oscillation library
 ## Usage
 
 ```javascript
-import { useMotion, spring } from 'react-oscillation';
+import { useMotion, spring } from "react-oscillation";
 
 function Toggle({ checked, onChange }) {
   let { x } = useMotion(() => ({ x: spring(checked ? 100 : 0) }), [checked]);

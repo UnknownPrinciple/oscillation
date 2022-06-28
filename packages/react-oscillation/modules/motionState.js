@@ -8,5 +8,5 @@ export function serializeMotionState(state) {
 }
 
 export function isMotionConfig(target) {
-  return target != null && typeof target.update === 'function';
+  return target != null && typeof target.update === "function";
 }

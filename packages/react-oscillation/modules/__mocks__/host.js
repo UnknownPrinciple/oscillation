@@ -1,4 +1,4 @@
-import { jest } from '@jest/globals';
+import { jest } from "@jest/globals";
 
 export default function instantiateMock() {
   let timestamp = 0;

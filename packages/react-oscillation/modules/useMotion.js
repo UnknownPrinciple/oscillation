@@ -1,6 +1,6 @@
-import { useState, useLayoutEffect } from 'react';
-import { requestMotion, cancelMotion } from 'oscillation';
-import { serializeMotionState } from './motionState.js';
+import { useState, useLayoutEffect } from "react";
+import { requestMotion, cancelMotion } from "oscillation";
+import { serializeMotionState } from "./motionState.js";
 
 export function useMotion(factory, deps) {
   // initial state should be a snapshot of any values that factory() returns

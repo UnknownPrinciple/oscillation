@@ -1,7 +1,7 @@
-import { useMotion } from './useMotion.js';
+import { useMotion } from "./useMotion.js";
 
 function Motion(props) {
-  let values = useMotion(() => omit(props, ['children']), [props]);
+  let values = useMotion(() => omit(props, ["children"]), [props]);
   return props.children(values);
 }
 

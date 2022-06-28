@@ -5,10 +5,15 @@
   "devDependencies": {
     "@rollup/plugin-multi-entry": "^4.1.0",
     "jest": "^27.0.6",
+    "prettier": "^2.7.1",
     "rollup": "^2.55.1",
     "rollup-plugin-auto-external": "^2.0.0",
     "rollup-plugin-bundle-size": "^1.0.3",
-    "rollup-plugin-copy": "^3.4.0",
-    "vite": "^2.4.4"
+    "rollup-plugin-copy": "^3.4.0"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "trailingComma": "all",
+    "proseWrap": "always"
   }
 }

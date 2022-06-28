@@ -1,4 +1,4 @@
-import { requestAnimationFrame, cancelAnimationFrame, getCurrentTimestamp } from './environment.js';
+import { requestAnimationFrame, cancelAnimationFrame, getCurrentTimestamp } from "./environment.js";
 
 const MS_PER_FRAME = 1000 / 60;
 
@@ -99,7 +99,7 @@ function shouldContinueMotion(values) {
 }
 
 function isMotionConfig(target) {
-  return target != null && typeof target.update === 'function';
+  return target != null && typeof target.update === "function";
 }
 
 function createMotionValue(key, initial, config) {
@@ -108,8 +108,8 @@ function createMotionValue(key, initial, config) {
 
 function updateMotionValue(value) {
   let update = value.config.update(value.x, value.v, value.destX, value.config);
-  value.x = update[0]
-  value.v = update[1]
+  value.x = update[0];
+  value.v = update[1];
 }
 
 function interpolateMotionValue(value, completion) {

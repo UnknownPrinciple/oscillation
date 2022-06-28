@@ -7,9 +7,9 @@ Physics-based animations made easy
 ## Usage
 
 ```javascript
-import { requestMotion, spring } from 'oscillation';
+import { requestMotion, spring } from "oscillation";
 
-let output = document.querySelector('#output');
+let output = document.querySelector("#output");
 requestMotion({ x: 0 }, { x: spring(10) }, ({ x }) => {
   output.textContent = x;
 });
@@ -19,7 +19,8 @@ requestMotion({ x: 0 }, { x: spring(10) }, ({ x }) => {
 
 ### `requestMotion(initialState, destinationValues, callback)`
 
-Returns `motionId`, a special ID that should be used to cancel the motion (similar to rAF or setTimeout/setInterval)
+Returns `motionId`, a special ID that should be used to cancel the motion (similar to rAF or
+setTimeout/setInterval)
 
 ### `cancelMotion(motionId)`
 
@@ -30,10 +31,10 @@ Uses `motionId` to cancel existing animations
 ## Examples
 
 ```javascript
-import { requestMotion, cancelMotion, spring } from 'oscillation';
+import { requestMotion, cancelMotion, spring } from "oscillation";
 
-let target = document.querySelector('#targetSpinner');
-let button = document.querySelector('#checkButton');
+let target = document.querySelector("#targetSpinner");
+let button = document.querySelector("#checkButton");
 
 let currentX = 0;
 let checked = false;
@@ -47,7 +48,7 @@ function triggerAnimation(checked) {
   return motionId;
 }
 
-button.addEventListener('click', () => {
+button.addEventListener("click", () => {
   cancelMotion(motionId);
   checked = !checked;
   triggerAnimation(checked);
