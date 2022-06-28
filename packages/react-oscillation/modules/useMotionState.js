@@ -3,7 +3,7 @@ import { requestMotion, cancelMotion } from "oscillation";
 import { isMotionConfig } from "./motionState.js";
 
 export function useMotionState(initialValue) {
-  let [state, setState] = useState(initialValue);
+  let v = useState(initialValue);
 
   // ref for saving motion id so the setter can cancel current animaiton
   // before starting a new one
@@ -12,7 +12,7 @@ export function useMotionState(initialValue) {
   let setMotionState = useCallback((values) => {
     cancelMotion(idRef.current);
 
-    setState((state) => {
+    v[1]((state) => {
       // in the same way as setState(), this setter can receive a callback to determine
       // the next value based on the current one
       let nextValues = typeof values === "function" ? values(state) : values;
@@ -20,7 +20,7 @@ export function useMotionState(initialValue) {
       // if any of new values require motion, trigger animaitons and save the id
       for (let key in nextValues) {
         if (isMotionConfig(nextValues[key])) {
-          idRef.current = requestMotion(state, nextValues, setState);
+          idRef.current = requestMotion(state, nextValues, v[1]);
           return state;
         }
       }
@@ -30,5 +30,5 @@ export function useMotionState(initialValue) {
     });
   }, []);
 
-  return [state, setMotionState];
+  return [v[0], setMotionState];
 }

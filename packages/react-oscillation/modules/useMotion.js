@@ -5,7 +5,7 @@ import { serializeMotionState } from "./motionState.js";
 export function useMotion(factory, deps) {
   // initial state should be a snapshot of any values that factory() returns
   // this hook must synchronously return initial state
-  let [state, setState] = useState(() => serializeMotionState(factory()));
+  let v = useState(() => serializeMotionState(factory()));
 
   // layout effect is used to schedule necessary animations immediately when
   // DOM elements are available
@@ -13,9 +13,9 @@ export function useMotion(factory, deps) {
   // intentionnaly omits tracking `state` since it will be up to date
   // every time the effect needs to be restarted
   useLayoutEffect(() => {
-    let motionId = requestMotion(state, factory(), setState);
+    let motionId = requestMotion(v[0], factory(), v[1]);
     return () => cancelMotion(motionId);
   }, deps);
 
-  return state;
+  return v[0];
 }

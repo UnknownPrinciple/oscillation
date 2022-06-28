@@ -1,5 +1,5 @@
+import * as React from "react";
 import { jest } from "@jest/globals";
-import { createElement } from "react";
 import { create, act } from "react-test-renderer";
 import { useMotion } from "../useMotion.js";
 import { useMotionState } from "../useMotionState.js";
@@ -15,12 +15,16 @@ test("proper react hooks data passing to the core library", () => {
   function Component({ value }) {
     let { number, constant } = useMotion(() => ({ number: spring(value), constant: 1 }), [value]);
     snapshots.push(number);
-    return createElement("span", null, number, ", ", constant);
+    return (
+      <span>
+        {number}, {constant}
+      </span>
+    );
   }
-  let renderer = create(createElement(Component, { value: 0 }));
+  let renderer = create(<Component value={0} />);
   expect(renderer.toJSON().children).toEqual(["0", ", ", "1"]);
   act(() => {
-    renderer.update(createElement(Component, { value: 10 }));
+    renderer.update(<Component value={10} />);
   });
   act(() => {
     advanceAnimationFrame(1, 0);
@@ -40,9 +44,9 @@ test("proper react hooks setter scheduling", () => {
     let [state, setState] = useMotionState(() => ({ x: 0 }));
     snapshots.push(state.x);
     setStateFn = setState;
-    return createElement("span", null, state.x);
+    return <span>{state.x}</span>;
   }
-  let renderer = create(createElement(Component));
+  let renderer = create(<Component />);
   expect(renderer.toJSON().children).toEqual(["0"]);
   act(() => {
     setStateFn({ x: spring(10) });

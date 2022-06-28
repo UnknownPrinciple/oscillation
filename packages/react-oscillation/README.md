@@ -6,7 +6,7 @@ Complementary React hooks and components for Oscillation library
 
 ## Usage
 
-```javascript
+```jsx
 import { useMotion, spring } from "react-oscillation";
 
 function Toggle({ checked, onChange }) {
