@@ -11,7 +11,7 @@
   "type": "module",
   "sideEffects": false,
   "scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest --config jest.config.js",
+    "test": "jest --config jest.config.js",
     "build": "rollup --config rollup.config.js"
   },
   "dependencies": {
@@ -21,6 +21,7 @@
     "react": "^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
-    "react-test-renderer": "^17.0.2"
+    "react": "^18.2.0",
+    "react-test-renderer": "^18.2.0"
   }
 }
