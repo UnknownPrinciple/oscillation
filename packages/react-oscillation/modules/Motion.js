@@ -1,14 +1,14 @@
 import { useMotion } from "./useMotion.js";
 
-function Motion(props) {
-  let values = useMotion(() => omit(props, ["children"]), [props]);
+export function Motion(props) {
+  let values = useMotion(() => collect(props), [props]);
   return props.children(values);
 }
 
-function omit(source, excluded) {
+function collect(source) {
   let result = {};
   for (let key in source) {
-    if (excluded.indexOf(key) >= 0) continue;
+    if (typeof source[key] === "function") continue;
     result[key] = source[key];
   }
   return result;
