@@ -28,6 +28,8 @@ Uses `motionId` to cancel existing animations
 
 ### `spring(value[, config])`
 
+Creates spring config that is used by motion function.
+
 ## Examples
 
 ```javascript
