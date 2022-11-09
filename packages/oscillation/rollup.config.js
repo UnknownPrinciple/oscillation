@@ -11,6 +11,7 @@ export default {
     copy({
       targets: [
         { src: ["../../LICENSE", "README.md"], dest: "build" },
+        { src: ["typings/*.d.ts"], dest: "build" },
         { src: ["package.json"], dest: "build", transform: generatePkg },
       ],
     }),
@@ -31,8 +32,8 @@ function generatePkg(contents) {
       main: pkg.main,
       module: pkg.module,
       exports: pkg.exports,
-      type: pkg.type,
       types: pkg.types,
+      type: pkg.type,
       sideEffects: pkg.sideEffects,
       files: pkg.files,
       keywords: pkg.keywords,

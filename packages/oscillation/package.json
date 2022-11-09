@@ -8,6 +8,7 @@
   "main": "./oscillation.js",
   "module": "./oscillation.js",
   "exports": "./oscillation.js",
+  "types": "./oscillation.d.ts",
   "type": "module",
   "sideEffects": false,
   "scripts": {
