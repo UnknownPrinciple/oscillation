@@ -1,7 +1,6 @@
 # Oscillation
 
-An animation library. Oscillation [provides VanillaJS API](./packages/oscillation) for physics-based
-animations and [complementary React.js hooks/components](./packages/react-oscillation).
+Provides VanillaJS API for physics-based animations.
 
 ## Prior Art
 
@@ -15,12 +14,6 @@ engineers and researchers.
 - [Designing Fluid Interfaces](https://developer.apple.com/videos/play/wwdc2018/803/) talk from WWDC
   2018
 
-## ESM Packages
-
-NPM packages published from this project are ES Modules, and not compiled to ES5. Ideally you should
-not spot any difference, but in case you face any issues, see
-[this useful article](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c).
-
 ## License
 
-[ISC License](./LICENSE) &copy; Alexey Raspopov
+[ISC License](./LICENSE) &copy; Oleksii Raspopov
