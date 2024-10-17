@@ -9,6 +9,6 @@
     "@playwright/test": "^1.48.1",
     "prettier": "^3.3.3",
     "rollup": "^4.24.0",
-    "rollwright": "^0.0.6"
+    "rollwright": "^0.0.7"
   }
 }
