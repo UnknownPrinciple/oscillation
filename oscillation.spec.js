@@ -32,8 +32,7 @@ let test = base.extend({
 
 test("interpolation with ideal timer condition", async ({ execute, advance }) => {
   let snapshots = await execute(async () => {
-    let { motion } = await import("./motion.js");
-    let { spring } = await import("./spring.js");
+    let { motion, spring } = await import("./oscillation.js");
     let snapshots = [];
     let ctl = new AbortController();
     motion(spring(0, 10), (x) => snapshots.push(x), { signal: ctl.signal });
@@ -51,8 +50,7 @@ test("interpolation with ideal timer condition", async ({ execute, advance }) =>
 
 test("eventual interpolation completeness", async ({ execute, advance }) => {
   let snapshots = await execute(async () => {
-    let { motion } = await import("./motion.js");
-    let { spring } = await import("./spring.js");
+    let { motion, spring } = await import("./oscillation.js");
     let snapshots = [];
     let ctl = new AbortController();
     motion(spring(0, 10), (x) => snapshots.push(x), { signal: ctl.signal });
@@ -67,8 +65,7 @@ test("eventual interpolation completeness", async ({ execute, advance }) => {
 
 test("interpolation with inconsistent timer condition", async ({ execute, advance }) => {
   let snapshots = await execute(async () => {
-    let { motion } = await import("./motion.js");
-    let { spring } = await import("./spring.js");
+    let { motion, spring } = await import("./oscillation.js");
     let snapshots = [];
     let ctl = new AbortController();
     motion(spring(0, 10), (x) => snapshots.push(x), { signal: ctl.signal });
@@ -102,8 +99,7 @@ test("explicit motion cancellation", async ({ execute, advance }) => {
   let ctl = await execute(() => new AbortController());
 
   let snapshots = await execute(async (ctl) => {
-    let { motion } = await import("./motion.js");
-    let { spring } = await import("./spring.js");
+    let { motion, spring } = await import("./oscillation.js");
     let snapshots = [];
     motion(spring(-10, -100), (x) => snapshots.push(x), { signal: ctl.signal });
     return snapshots;
