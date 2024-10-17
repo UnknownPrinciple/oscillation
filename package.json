@@ -1,5 +1,11 @@
 {
+  "name": "oscillation",
+  "version": "0.3.0",
   "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "build": "rollup --config rollup.config.js"
+  },
   "prettier": {
     "printWidth": 100,
     "trailingComma": "all",
@@ -9,6 +15,7 @@
     "@playwright/test": "^1.48.1",
     "prettier": "^3.3.3",
     "rollup": "^4.24.0",
+    "rollup-plugin-copy": "^3.5.0",
     "rollwright": "^0.0.7"
   }
 }
