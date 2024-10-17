@@ -1,3 +1,5 @@
+const SEC_PER_FRAME = 1 / 60;
+
 export let springs = {
   noWobble: { damping: 0.997, frequency: 0.4818, precision: 0.01 },
   gentle: { damping: 0.639, frequency: 0.5735, precision: 0.01 },
@@ -34,8 +36,8 @@ function singlespring(current, destination, damping, stiffness, precision) {
       return true;
     },
     interpolate(t) {
-      let next = step(current, velocity, destination, damping, stiffness, precision);
-      return current + (next[0] - current) * t;
+      let tuple = step(current, velocity, destination, damping, stiffness, precision);
+      return current + (tuple[0] - current) * t;
     },
   };
 }
@@ -58,11 +60,11 @@ function multispring(current, destination, damping, stiffness, precision) {
       }
       return true;
     },
-    interpolate() {
+    interpolate(t) {
       let tuple;
       for (let i = 0; i < current.length; i++) {
         tuple = step(current[i], velocity[i], destination[i], damping, stiffness, precision);
-        interpolated[i] = tuple[0];
+        interpolated[i] = current[i] + (tuple[0] - current[i]) * t;
       }
       return interpolated;
     },

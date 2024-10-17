@@ -1,3 +1,6 @@
+const MS_PER_FRAME = 1000 / 60;
+const MAX_SKIP_FRAME = 10;
+
 export function motion(defs, callback, options) {
   let updt = updateOf(defs);
   let intp = interpolateOf(defs);

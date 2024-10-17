@@ -1,22 +1,14 @@
 {
-  "workspaces": [
-    "packages/*"
-  ],
-  "devDependencies": {
-    "@babel/preset-env": "^7.18.6",
-    "@babel/preset-react": "^7.18.6",
-    "@rollup/plugin-multi-entry": "^4.1.0",
-    "babel-jest": "^28.1.1",
-    "jest": "^28.1.1",
-    "prettier": "^2.7.1",
-    "rollup": "^2.55.1",
-    "rollup-plugin-auto-external": "^2.0.0",
-    "rollup-plugin-bundle-size": "^1.0.3",
-    "rollup-plugin-copy": "^3.4.0"
-  },
+  "type": "module",
   "prettier": {
     "printWidth": 100,
     "trailingComma": "all",
     "proseWrap": "always"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.1",
+    "prettier": "^3.3.3",
+    "rollup": "^4.24.0",
+    "rollwright": "^0.0.6"
   }
 }
