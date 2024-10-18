@@ -1,6 +1,10 @@
 {
   "name": "oscillation",
+  "description": "An animation library",
   "version": "0.3.0",
+  "license": "ISC",
+  "author": "Oleksii Raspopov",
+  "repository": "UnknownPrinciple/oscillation",
   "type": "module",
   "scripts": {
     "test": "playwright test",

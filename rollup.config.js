@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [
     copy({
       targets: [
-        { src: ["LICENSE", "oscillation.d.ts"], dest: "build" },
+        { src: ["README.md", "LICENSE", "oscillation.d.ts"], dest: "build" },
         { src: "package.json", dest: "build", transform: generatePackageJson },
       ],
     }),
