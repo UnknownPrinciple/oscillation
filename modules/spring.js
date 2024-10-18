@@ -26,10 +26,16 @@ export function spring(source, destination, config = springs.noWobble) {
 function singlespring(current, destination, damping, stiffness, precision) {
   let velocity = 0;
   return {
-    update() {
-      let tuple = step(current, velocity, destination, damping, stiffness, precision);
-      current = tuple[0];
-      velocity = tuple[1];
+    update(n) {
+      if (n === -1) {
+        current = destination;
+        velocity = 0;
+      } else
+        while (n-- > 0) {
+          let tuple = step(current, velocity, destination, damping, stiffness, precision);
+          current = tuple[0];
+          velocity = tuple[1];
+        }
     },
     complete() {
       if (velocity !== 0 || current !== destination) return false;
@@ -46,13 +52,21 @@ function multispring(current, destination, damping, stiffness, precision) {
   let velocity = new Float64Array(current.length);
   let interpolated = current.slice();
   return {
-    update() {
-      let tuple;
-      for (let i = 0; i < current.length; i++) {
-        tuple = step(current[i], velocity[i], destination[i], damping, stiffness, precision);
-        current[i] = tuple[0];
-        velocity[i] = tuple[1];
-      }
+    update(n) {
+      if (n === -1) {
+        for (let i = 0; i < current.length; i++) {
+          current[i] = destination[i];
+          velocity[i] = 0;
+        }
+      } else
+        while (n-- > 0) {
+          let tuple;
+          for (let i = 0; i < current.length; i++) {
+            tuple = step(current[i], velocity[i], destination[i], damping, stiffness, precision);
+            current[i] = tuple[0];
+            velocity[i] = tuple[1];
+          }
+        }
     },
     complete() {
       for (let i = 0; i < current.length; i++) {

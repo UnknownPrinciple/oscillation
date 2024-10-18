@@ -7,12 +7,21 @@ export function motion(defs, callback, options) {
   let cplt = completeOf(defs);
   let signal = options != null ? options.signal : null;
   let complete = signal != null ? () => signal.aborted || cplt() : cplt;
+  let irm = options != null ? options.ignoreReducedMotion : false;
+  let prm = irm ? { matches: false } : matchMedia("(prefers-reduced-motion: reduce)");
 
   let state;
   let accumulatedMs = 0;
 
   /** @param {number} delta */
   function update(delta) {
+    if (prm.matches) {
+      updt(-1);
+      accumulatedMs = 0;
+      state = intp(0);
+      return true;
+    }
+
     // check for accumulated time since we don't fully own the render cycle
     accumulatedMs += delta;
 
@@ -23,11 +32,8 @@ export function motion(defs, callback, options) {
       return false;
     }
 
-    // rendering cycle is not consistent and we need to take this into account
-    for (; accumulatedMs >= MS_PER_FRAME; accumulatedMs -= MS_PER_FRAME) {
-      updt();
-    }
-
+    updt((accumulatedMs / MS_PER_FRAME) | 0);
+    accumulatedMs %= MS_PER_FRAME;
     state = intp(accumulatedMs / MS_PER_FRAME);
     return true;
   }
@@ -45,19 +51,19 @@ export function motion(defs, callback, options) {
 function updateOf(defs) {
   if (typeof defs.update === "function") {
     // is single motion object
-    return () => defs.update();
+    return (n) => defs.update(n);
   }
 
   if (Array.isArray(defs)) {
     // is array of motion objects
-    return () => {
-      for (let index = 0; index < defs.length; index++) defs[index].update();
+    return (n) => {
+      for (let index = 0; index < defs.length; index++) defs[index].update(n);
     };
   }
 
   // otherwise, assume dict of motion objects
-  return () => {
-    for (let key in defs) defs[key].update();
+  return (n) => {
+    for (let key in defs) defs[key].update(n);
   };
 }
 

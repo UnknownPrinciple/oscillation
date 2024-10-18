@@ -6,7 +6,7 @@ npm install oscillation
 
 Oscillation is a physics-based animation library for creating smooth, natural-looking animations.
 
-```javascript
+```js
 import { motion, spring } from "oscillation";
 
 // Animate a single value
@@ -34,7 +34,7 @@ is overloaded to support different input types:
 
 1. Single motion object:
 
-```javascript
+```js
 motion(spring(0, 100), (value) => {
   // value gets animated from 0 to 100
 });
@@ -42,7 +42,7 @@ motion(spring(0, 100), (value) => {
 
 2. Object with motion properties:
 
-```javascript
+```js
 motion({ x: spring(0, 100), y: spring(-50, 50) }, ({ x, y }) => {
   // x and y animated simultaneously
 });
@@ -50,7 +50,7 @@ motion({ x: spring(0, 100), y: spring(-50, 50) }, ({ x, y }) => {
 
 3. Array of motion objects:
 
-```javascript
+```js
 motion([spring([0, 0, 0], [255, 128, 0]), spring(0, 360)], ([color, rotation]) => {
   // color and rotation animated simultaneously
 });
@@ -88,30 +88,47 @@ Extra types provided for TypeScript:
 
 You can cancel ongoing animations using an `AbortSignal`:
 
-```javascript
-const controller = new AbortController();
-const { signal } = controller;
+```js
+let ctl = new AbortController();
 
 motion(
   spring(0, 100),
   (value) => {
     console.log(value);
   },
-  { signal },
+  { signal: ctl.signal },
 );
 
 // To cancel the animation:
-controller.abort();
+ctl.abort();
+```
+
+## Support `prefers-reduced-motion`
+
+If the user's system has
+[reduced motion](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion)
+setting enabled, the animation path will be skipped and destination state going to be the only state
+rendered. To opt-out of this behavior and always animate the whole path, use `ignoreReducedMotion`
+flag:
+
+```js
+motion(
+  spring(0, 100),
+  (value) => {
+    console.log(value);
+  },
+  { ignoreReducedMotion: true },
+);
 ```
 
 ## Examples
 
 ### Animating UI Elements
 
-```javascript
+```js
 import { motion, spring } from "oscillation";
 
-const button = document.querySelector("#myButton");
+let button = document.querySelector("#myButton");
 
 motion({ x: spring(0, 100), scale: spring(1, 1.2) }, (state) => {
   button.style.transform = `translateX(${state.x}px) scale(${state.scale})`;
@@ -120,13 +137,13 @@ motion({ x: spring(0, 100), scale: spring(1, 1.2) }, (state) => {
 
 ### Complex Color and Rotation Animation
 
-```javascript
+```js
 import { motion, spring } from "oscillation";
 
-const element = document.querySelector("#animatedElement");
+let element = document.querySelector("#animatedElement");
 
 motion([spring([0, 0, 0], [255, 128, 0]), spring(0, 360)], ([color, rotation]) => {
-  const [r, g, b] = color;
+  let [r, g, b] = color;
   element.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
   element.style.transform = `rotate(${rotation}deg)`;
 });

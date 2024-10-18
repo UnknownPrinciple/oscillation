@@ -115,3 +115,20 @@ test("explicit motion cancellation", async ({ execute, advance }) => {
     -10, -14.251734665738812, -20.711652077546674, -28.117553923398887,
   ]);
 });
+
+test("prefers reduced motion", async ({ page, execute, advance }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+
+  let snapshots = await execute(async () => {
+    let { motion, spring } = await import("./oscillation.js");
+    let snapshots = [];
+    let ctl = new AbortController();
+    motion(spring(0, 10), (x) => snapshots.push(x), { signal: ctl.signal });
+    return snapshots;
+  });
+
+  await advance(1, 0);
+  await advance(5, 1000 / 60);
+
+  expect(await snapshots.jsonValue()).toEqual([10]);
+});

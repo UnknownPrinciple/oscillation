@@ -11,7 +11,7 @@
 export function motion<Value extends Motion<any>>(
   defs: Value,
   callback: (state: Value extends Motion<infer V> ? V : never) => void,
-  options?: { signal: AbortSignal },
+  options?: { signal?: AbortSignal; ignoreReducedMotion?: boolean },
 ): void;
 /**
  * Starts an animation and calls the callback with updated values on each frame.
@@ -27,7 +27,7 @@ export function motion<Value extends Motion<any>>(
 export function motion<Dict extends { [k: string]: Motion<any> }>(
   defs: Dict,
   callback: (state: { [k in keyof Dict]: Dict[k] extends Motion<infer V> ? V : never }) => void,
-  options?: { signal: AbortSignal },
+  options?: { signal?: AbortSignal; ignoreReducedMotion?: boolean },
 ): void;
 /**
  * Starts an animation and calls the callback with updated values on each frame.
@@ -45,11 +45,11 @@ export function motion<Dict extends { [k: string]: Motion<any> }>(
 export function motion<List extends [Motion<any>, ...Motion<any>[]]>(
   defs: List,
   callback: (state: { [k in keyof List]: List[k] extends Motion<infer V> ? V : never }) => void,
-  options?: { signal: AbortSignal },
+  options?: { signal?: AbortSignal; ignoreReducedMotion?: boolean },
 ): void;
 
 export type Motion<Value> = {
-  update(): void;
+  update(n: number): void;
   complete(): boolean;
   interpolate(t: number): Value;
 };
