@@ -6,8 +6,6 @@ npm install oscillation
 
 Oscillation is a physics-based animation library for creating smooth, natural-looking animations.
 
-## Quick Start
-
 ```javascript
 import { motion, spring } from "oscillation";
 
@@ -64,7 +62,7 @@ Parameters:
 - `callback`: A function called on each frame with the current state.
 - `options`: Optional object with an `AbortSignal` to stop the animation.
 
-### `spring(source, destination[, config])`
+### `spring(source, destination, config?)`
 
 Creates a spring-based motion.
 
