@@ -37,6 +37,9 @@ function singlespring(current, destination, damping, stiffness, precision) {
           velocity = tuple[1];
         }
     },
+    destination(v) {
+      destination = v;
+    },
     complete() {
       if (velocity !== 0 || current !== destination) return false;
       return true;
@@ -67,6 +70,9 @@ function multispring(current, destination, damping, stiffness, precision) {
             velocity[i] = tuple[1];
           }
         }
+    },
+    destination(v) {
+      destination = v;
     },
     complete() {
       for (let i = 0; i < current.length; i++) {

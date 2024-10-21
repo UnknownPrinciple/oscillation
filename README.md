@@ -75,15 +75,6 @@ Parameters:
 Supports various numeric types: `number`, `Float64Array`, `Float32Array`, `Uint32Array`,
 `Int32Array`, `Uint16Array`, `Int16Array`, `Uint8Array`, `Int8Array`, `Array<number>`.
 
-## Types
-
-Extra types provided for TypeScript:
-
-- `Motion<Value>`: Represents an animatable value with methods:
-  - `update()`: Updates the motion state.
-  - `complete()`: Checks if the motion is complete.
-  - `interpolate(t: number)`: Interpolates the motion value at a given time t.
-
 ## Cancelling Animations
 
 You can cancel ongoing animations using an `AbortSignal`:

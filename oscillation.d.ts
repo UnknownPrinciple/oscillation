@@ -50,6 +50,7 @@ export function motion<List extends [Motion<any>, ...Motion<any>[]]>(
 
 export type Motion<Value> = {
   update(n: number): void;
+  destination(v: Value): void;
   complete(): boolean;
   interpolate(t: number): Value;
 };
